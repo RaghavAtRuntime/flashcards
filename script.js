@@ -149,8 +149,9 @@ function startStudy() {
 
 // Render text with LaTeX support
 function renderTextWithLatex(element, text) {
-    // Use innerHTML to allow KaTeX to render
-    element.innerHTML = text;
+    // Escape HTML to prevent XSS, but preserve the text for LaTeX processing
+    // Create a text node first for safety
+    element.textContent = text;
     
     // Wait for KaTeX to be loaded, then render
     if (typeof renderMathInElement !== 'undefined') {
