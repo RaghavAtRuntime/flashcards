@@ -439,3 +439,8 @@ header h1 {
         padding: 25px;
     }
 }
+
+/* KaTeX inline math alignment fix */
+.card-content .katex {
+    vertical-align: middle;
+}
