@@ -147,6 +147,24 @@ function startStudy() {
     updateCounters();
 }
 
+// Render text with LaTeX support
+function renderTextWithLatex(element, text) {
+    // Escape HTML to prevent XSS, but preserve the text for LaTeX processing
+    // Create a text node first for safety
+    element.textContent = text;
+    
+    // Wait for KaTeX to be loaded, then render
+    if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(element, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+        });
+    }
+}
+
 // Display current card
 function displayCard() {
     if (activeCards.length === 0) {
@@ -163,8 +181,8 @@ function displayCard() {
     }
 
     const card = activeCards[currentIndex];
-    question.textContent = card.question;
-    answer.textContent = card.answer;
+    renderTextWithLatex(question, card.question);
+    renderTextWithLatex(answer, card.answer);
     
     // Reset flip state
     flashcard.classList.remove('flipped');
