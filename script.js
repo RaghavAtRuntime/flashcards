@@ -85,7 +85,7 @@ function parseCSV(text) {
             flashcards.push({
                 question: parts[0].trim(),
                 answer: parts[1].trim(),
-                id: i
+                id: flashcards.length
             });
         }
     }
