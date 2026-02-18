@@ -10,6 +10,7 @@ A modern, aesthetically pleasing web-app for learning with flashcards using spac
 ✅ **Smart Marking** - Mark cards as "Got It Right" or "Didn't Know"
 🎯 **Spaced Repetition** - Automatically removes mastered cards and focuses on ones you need to practice
 🎉 **Completion Celebration** - Get congratulated when you master all cards!
+📐 **LaTeX Support** - Write mathematical equations using LaTeX notation (wrap equations in `$` symbols)
 
 ## How to Use
 
@@ -29,6 +30,8 @@ Your CSV file should have two columns:
 1. **Question** - The front of the flashcard
 2. **Answer** - The back of the flashcard
 
+You can use LaTeX notation for mathematical equations by wrapping them with `$` symbols.
+
 ### Example CSV:
 
 ```csv
@@ -38,7 +41,17 @@ What is 2 + 2?,4
 Who wrote Romeo and Juliet?,William Shakespeare
 ```
 
-A sample CSV file (`sample.csv`) is included for testing.
+### Example CSV with LaTeX:
+
+```csv
+Question,Answer
+What is the quadratic formula?,$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+What is Einstein's mass-energy equivalence?,$E = mc^2$
+What is the Pythagorean theorem?,$a^2 + b^2 = c^2$
+What is the derivative of $x^2$?,$\frac{d}{dx}x^2 = 2x$
+```
+
+A sample CSV file (`sample.csv`) and a LaTeX sample file (`sample-latex.csv`) are included for testing.
 
 ## Running Locally
 
