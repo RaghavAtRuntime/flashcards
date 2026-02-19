@@ -443,4 +443,6 @@ header h1 {
 /* KaTeX inline math alignment fix */
 .card-content .katex {
     vertical-align: -0.25em;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
 }
