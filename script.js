@@ -149,13 +149,16 @@ function startStudy() {
 
 // Render text with LaTeX support
 function renderTextWithLatex(element, text) {
-    // Escape HTML to prevent XSS, but preserve the text for LaTeX processing
-    // Create a text node first for safety
-    element.textContent = text;
-    
-    // Wait for KaTeX to be loaded, then render
+    // Wrap content in a span so inline text and math flow as natural inline content,
+    // avoiding the flex-item fragmentation that occurs when KaTeX nodes are
+    // direct children of the display:flex .card-content element.
+    const wrapper = document.createElement('span');
+    wrapper.textContent = text;
+    element.textContent = '';
+    element.appendChild(wrapper);
+
     if (typeof renderMathInElement !== 'undefined') {
-        renderMathInElement(element, {
+        renderMathInElement(wrapper, {
             delimiters: [
                 {left: '$$', right: '$$', display: true},
                 {left: '$', right: '$', display: false}

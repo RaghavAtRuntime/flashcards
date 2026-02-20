@@ -275,17 +275,27 @@ header h1 {
 }
 
 .card-content {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 500;
     text-align: center;
     color: var(--text-primary);
-    line-height: 1.5;
+    line-height: 1.6;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-wrap: break-word;
     word-wrap: break-word;
     max-width: 100%;
+    overflow-y: auto;
+}
+
+/* Wrapper span created by renderTextWithLatex – needs full width so that
+   inline text + math wraps and centres correctly inside the flex container */
+.card-content > span {
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .flip-hint {
@@ -398,7 +408,7 @@ header h1 {
     }
 
     .card-content {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 
     .answer-controls {
@@ -427,7 +437,7 @@ header h1 {
 
 @media (max-width: 480px) {
     .card-content {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .flashcard {
@@ -442,7 +452,10 @@ header h1 {
 
 /* KaTeX inline math alignment fix */
 .card-content .katex {
-    vertical-align: -0.25em;
-    margin-left: 0.2em;
-    margin-right: 0.2em;
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+.card-content .katex-display {
+    margin: 0.5em 0;
 }
