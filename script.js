@@ -153,7 +153,15 @@ function renderTextWithLatex(element, text) {
     // avoiding the flex-item fragmentation that occurs when KaTeX nodes are
     // direct children of the display:flex .card-content element.
     const wrapper = document.createElement('span');
-    wrapper.textContent = text;
+
+    // A $ immediately followed by a digit is almost certainly a currency value
+    // (e.g. $5, $10.99) rather than a LaTeX math delimiter.  Replace such
+    // occurrences with a Private-Use-Area placeholder before handing the text
+    // to KaTeX so they are never mis-parsed as equation delimiters.
+    const CURRENCY_PLACEHOLDER = '\uE000';
+    const preprocessed = text.replace(/\$(?=\d)/g, CURRENCY_PLACEHOLDER);
+
+    wrapper.textContent = preprocessed;
     element.textContent = '';
     element.appendChild(wrapper);
 
@@ -166,6 +174,19 @@ function renderTextWithLatex(element, text) {
             throwOnError: false
         });
     }
+
+    // After KaTeX has processed the node tree, walk every text node and
+    // restore the placeholder back to a literal dollar sign.
+    function restoreCurrencySign(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.textContent.includes(CURRENCY_PLACEHOLDER)) {
+                node.textContent = node.textContent.replaceAll(CURRENCY_PLACEHOLDER, '$');
+            }
+        } else {
+            node.childNodes.forEach(restoreCurrencySign);
+        }
+    }
+    restoreCurrencySign(wrapper);
 }
 
 // Display current card
